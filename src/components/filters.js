@@ -51,6 +51,7 @@ const getFilters = () => {
 function Filters({ setFilters }) {
   const classes = useStyles();
   const [listFilters, setListFilters] = React.useState(null);
+  
   useEffect(() => {
     const getInitialData = async () => {
       const responseFilters = await getFilters();
@@ -81,7 +82,7 @@ function Filters({ setFilters }) {
                 <Select
                   labelId="demo-simple-select-label"
                   id={item.id}
-                  // value={age}
+                  value={item.values[0].value}
                   name={item.name}
                   onChange={(e) => handleChange(e, item.id)}
                 >
@@ -99,7 +100,7 @@ function Filters({ setFilters }) {
                   onChange={(e) => handleChange(e, item.id)}
                   label={item.name}
                   type="datetime-local"
-                  defaultValue="2017-05-24T10:30:00.000Z"
+                  defaultValue={`${new Date()}:00.000Z`}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,
@@ -114,6 +115,7 @@ function Filters({ setFilters }) {
                   type="number"
                   name={item.name}
                   label={item.name}
+                  value={item.id === 'limit' ? 10 : 1}
                   onChange={(e) => handleChange(e, item.id)}
                   inputProps={{
                     min: item.validation.min || 1,

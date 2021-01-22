@@ -4,9 +4,10 @@ import Filters from './components/filters';
 import Playlist from './components/playlist';
 import moment from 'moment';
 
-const token = 'BQCbd9dlfQhRn3-n3-ZwbucBaNl3Yx6YnufEIu2QqGV6F-fgzhM_gLSMcSCbPdYOImBUGx72zti7VUTBGBifqJhhYdqZwGTFBOU0oc20gW-OaShZG78wWR-cyvaHCuz365Fq82N_oxEwHzCFvrgFaZGt4Bujcn-RcAT_UArvvTR970zzo49Pk2kxNY1oHhimp32wEv7Z7A';
+const token =
+  'BQCbd9dlfQhRn3-n3-ZwbucBaNl3Yx6YnufEIu2QqGV6F-fgzhM_gLSMcSCbPdYOImBUGx72zti7VUTBGBifqJhhYdqZwGTFBOU0oc20gW-OaShZG78wWR-cyvaHCuz365Fq82N_oxEwHzCFvrgFaZGt4Bujcn-RcAT_UArvvTR970zzo49Pk2kxNY1oHhimp32wEv7Z7A';
 
-const getPlayList = (params) => {
+const callSpotfy = (params) => {
   return new Promise(async (resolve, reject) => {
     try {
       const html = await axios.get(
@@ -26,9 +27,6 @@ const getPlayList = (params) => {
 
 function App() {
   const [listMusic, setListMusic] = React.useState(null);
-  const [selectedDate, setSelectedDate] = React.useState(
-    moment(new Date()).format('yyyy-mm-dd HH:mm:ss'),
-  );
 
   const [filters, setFilters] = React.useState({
     locale: '',
@@ -38,36 +36,35 @@ function App() {
     offset: '1',
   });
 
-  const getInitialData = async (params = '') => {
-    const responsePlaylist = await getPlayList(params);
+  const getPlayList = async (params = '') => {
+    const responsePlaylist = await callSpotfy(params);
     if (responsePlaylist && responsePlaylist.playlists)
       setListMusic(responsePlaylist.playlists);
   };
 
-  useEffect(() => {
-    getInitialData();
-  }, []);
-
-  useEffect(() => {
+  const concatParams = () => {
     let params = '';
     const keys = Object.keys(filters);
     const values = Object.values(filters);
 
-    for(let i = 0; i < keys.length; i++){
-      params += `${keys[i]}=${values[i]}&`
+    for (let i = 0; i < keys.length; i++) {
+      params += `${keys[i]}=${values[i]}&`;
     }
+    return params;
+  };
 
-    getInitialData(params);
+  useEffect(() => {
+    getPlayList();
+  }, []);
+
+  useEffect(() => {
+    getPlayList(concatParams());
   }, [filters]);
 
   return (
     <div className="App">
       <Filters setFilters={setFilters} />
-      <Playlist
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-        listMusic={listMusic || []}
-      />
+      <Playlist listMusic={listMusic || []} />
     </div>
   );
 }
