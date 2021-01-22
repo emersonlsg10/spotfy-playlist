@@ -2,13 +2,19 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
   container: {
     display: 'flex',
     justifyContent: 'center',
@@ -22,11 +28,10 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
   },
 }));
 
@@ -43,7 +48,7 @@ const getFilters = () => {
   });
 };
 
-function Filters() {
+function Filters({ setFilters }) {
   const classes = useStyles();
   const [listFilters, setListFilters] = React.useState(null);
   useEffect(() => {
@@ -54,17 +59,13 @@ function Filters() {
     getInitialData();
   }, []);
 
-  const [filters, setFilters] = React.useState({
-    locale: '',
-    country: '',
-    timestamp: '',
-    limit: '',
-    offset: '',
-  });
-
-  const handleChange = (event) => {
-    console.log(event.target);
-    // setFilters(event.target.value);
+  const handleChange = (event, itemId) => {
+    if (itemId === 'timestamp') {
+      const dateFormated = `${event.target.value}:00.000Z`;
+      setFilters((oldState) => ({ ...oldState, [itemId]: dateFormated }));
+    } else {
+      setFilters((oldState) => ({ ...oldState, [itemId]: event.target.value }));
+    }
   };
 
   return (
@@ -79,9 +80,10 @@ function Filters() {
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  id={item.id}
                   // value={age}
-                  onChange={handleChange}
+                  name={item.name}
+                  onChange={(e) => handleChange(e, item.id)}
                 >
                   {item.values.map((item) => (
                     <MenuItem value={item.value}>{item.name}</MenuItem>
@@ -91,16 +93,32 @@ function Filters() {
             )}
             {item.validation && item.validation.primitiveType === 'STRING' && (
               <form className={classes.root} noValidate autoComplete="off">
-                <TextField id="standard-basic" onChange={(e) => console.log(e.target.value) } label={item.name} />
+                <TextField
+                  id={item.id}
+                  name={item.name}
+                  onChange={(e) => handleChange(e, item.id)}
+                  label={item.name}
+                  type="datetime-local"
+                  defaultValue="2017-05-24T10:30:00.000Z"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
               </form>
             )}
             {item.validation && item.validation.primitiveType === 'INTEGER' && (
               <form className={classes.root} noValidate autoComplete="off">
                 <TextField
-                  id="filled-number"
+                  id={item.id}
                   type="number"
+                  name={item.name}
                   label={item.name}
-                  inputProps={{ min: item.validation.min || 1, max: item.validation.max || 50 }}
+                  onChange={(e) => handleChange(e, item.id)}
+                  inputProps={{
+                    min: item.validation.min || 1,
+                    max: item.validation.max || 50,
+                  }}
                   InputLabelProps={{
                     shrink: true,
                   }}
