@@ -100,7 +100,7 @@ function Filters({ setFilters }) {
                   onChange={(e) => handleChange(e, item.id)}
                   label={item.name}
                   type="datetime-local"
-                  defaultValue={`${new Date()}:00.000Z`}
+                  defaultValue={`${moment(new Date()).format('YYYY-MM-DD')}T12:00`}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,

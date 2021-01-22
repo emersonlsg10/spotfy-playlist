@@ -4,7 +4,7 @@ import Filters from './components/filters';
 import Playlist from './components/playlist';
 
 const token =
-  'BQCbd9dlfQhRn3-n3-ZwbucBaNl3Yx6YnufEIu2QqGV6F-fgzhM_gLSMcSCbPdYOImBUGx72zti7VUTBGBifqJhhYdqZwGTFBOU0oc20gW-OaShZG78wWR-cyvaHCuz365Fq82N_oxEwHzCFvrgFaZGt4Bujcn-RcAT_UArvvTR970zzo49Pk2kxNY1oHhimp32wEv7Z7A';
+  'BQCBaWagplxGvAMEjeA33wLHG-bNtYQLvd2kv709wNrPlZHv450FHos2eWCMamwF9nXVwNC8rQVwvThuDspG7ORz-olHVR1w3AxNDvsu1xDH11jNcwKD6YTXTdRao9th71eEHCTAM7gMZVwNdsyeko-e2SvtX0G7eAmyoHj6BYbOn4BQfdOrAqIC7lbmpEFh-zUPWcHVSA';
 
 const callSpotfy = (params) => {
   return new Promise(async (resolve, reject) => {
