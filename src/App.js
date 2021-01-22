@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import Filters from './components/filters';
 import Playlist from './components/playlist';
+import moment from 'moment';
 
 const token =
   'BQCBaWagplxGvAMEjeA33wLHG-bNtYQLvd2kv709wNrPlZHv450FHos2eWCMamwF9nXVwNC8rQVwvThuDspG7ORz-olHVR1w3AxNDvsu1xDH11jNcwKD6YTXTdRao9th71eEHCTAM7gMZVwNdsyeko-e2SvtX0G7eAmyoHj6BYbOn4BQfdOrAqIC7lbmpEFh-zUPWcHVSA';
@@ -28,9 +29,8 @@ function App() {
   const [listMusic, setListMusic] = React.useState(null);
 
   const [filters, setFilters] = React.useState({
-    locale: '',
-    country: '',
-    timestamp: '',
+    locale: 'en_AU',
+    country: 'AU',
     limit: '50',
     offset: '1',
   });
@@ -51,10 +51,6 @@ function App() {
     }
     return params;
   };
-
-  useEffect(() => {
-    getPlayList();
-  }, []);
 
   useEffect(() => {
     getPlayList(concatParams());
