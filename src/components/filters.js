@@ -82,7 +82,7 @@ function Filters({ setFilters }) {
                 <Select
                   labelId="demo-simple-select-label"
                   id={item.id}
-                  value={item.values[0].value}
+                  defaultValue={item.values[0].value}
                   name={item.name}
                   onChange={(e) => handleChange(e, item.id)}
                 >
@@ -115,7 +115,7 @@ function Filters({ setFilters }) {
                   type="number"
                   name={item.name}
                   label={item.name}
-                  value={item.id === 'limit' ? 10 : 1}
+                  defaultValue={item.id === 'limit' ? 10 : 1}
                   onChange={(e) => handleChange(e, item.id)}
                   inputProps={{
                     min: item.validation.min || 1,
