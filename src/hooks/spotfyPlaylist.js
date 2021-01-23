@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const token =
-  'BQCBaWagplxGvAMEjeA33wLHG-bNtYQLvd2kv709wNrPlZHv450FHos2eWCMamwF9nXVwNC8rQVwvThuDspG7ORz-olHVR1w3AxNDvsu1xDH11jNcwKD6YTXTdRao9th71eEHCTAM7gMZVwNdsyeko-e2SvtX0G7eAmyoHj6BYbOn4BQfdOrAqIC7lbmpEFh-zUPWcHVSA';
+  'BQDNMioR2ZMpqEvJZVtKpmQtzZtOLrbTR8ULJjzxI5rhs0GMzQCgbKB6pS_KgUskMA_0BzLtFeK_DDhYm9OKoh7-nnrrKm_J5hvIdlKNcFl2nSXY9ssb6deQhpj3HSaEy2HBtMfaS7kN6TsB1kmfICv7DOFwdumh9lZfTOSnjKbMk5zpTOFglzy09pCWtppDKQ4FZt69zA';
 
 const callSpotfy = (params) => {
   return new Promise(async (resolve, reject) => {

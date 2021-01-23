@@ -3,6 +3,8 @@ import Filters from './components/filters';
 import Playlist from './components/playlist';
 import { makeStyles } from '@material-ui/core/styles';
 import callSpotfy from './hooks/spotfyPlaylist';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -18,11 +20,16 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     fontStyle: 'italic',
     textAlign: 'center',
-  }
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }));
 
 function App() {
   const classes = useStyles();
+
   const [listMusic, setListMusic] = React.useState(null);
 
   const [filters, setFilters] = React.useState({
@@ -32,10 +39,21 @@ function App() {
     offset: '1',
   });
 
+  const [loading, setLoading] = React.useState(false);
+  const handleClose = () => {
+    setLoading(false);
+  };
+
   const getPlayList = async (params = '') => {
+    setLoading(true);
     const responsePlaylist = await callSpotfy(params);
+
     if (responsePlaylist && responsePlaylist.playlists)
       setListMusic(responsePlaylist.playlists);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   };
 
   const concatParams = () => {
@@ -54,11 +72,22 @@ function App() {
   }, [filters]);
 
   return (
-    <div className={classes.container}>
-      <div>
-        <div className={classes.title}>Bem vindo à Playlist de lançamentos!</div>
-        <Filters setFilters={setFilters} />
-        <Playlist listMusic={listMusic || []} />
+    <div className="app">
+      <Backdrop
+        className={classes.backdrop}
+        open={loading}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <div className={classes.container}>
+        <div>
+          <div className={classes.title}>
+            Bem vindo à Playlist de lançamentos!
+          </div>
+          <Filters setFilters={setFilters} />
+          <Playlist listMusic={listMusic || []} />
+        </div>
       </div>
     </div>
   );
