@@ -1,31 +1,28 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import Filters from './components/filters';
 import Playlist from './components/playlist';
-import moment from 'moment';
+import { makeStyles } from '@material-ui/core/styles';
+import callSpotfy from './hooks/spotfyPlaylist';
 
-const token =
-  'BQCBaWagplxGvAMEjeA33wLHG-bNtYQLvd2kv709wNrPlZHv450FHos2eWCMamwF9nXVwNC8rQVwvThuDspG7ORz-olHVR1w3AxNDvsu1xDH11jNcwKD6YTXTdRao9th71eEHCTAM7gMZVwNdsyeko-e2SvtX0G7eAmyoHj6BYbOn4BQfdOrAqIC7lbmpEFh-zUPWcHVSA';
-
-const callSpotfy = (params) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const html = await axios.get(
-        `https://api.spotify.com/v1/browse/featured-playlists?${params}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      resolve(html.data);
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    marginTop: 20,
+  },
+  title: {
+    marginBottom: 20,
+    fontSize: 40,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    textAlign: 'center',
+  }
+}));
 
 function App() {
+  const classes = useStyles();
   const [listMusic, setListMusic] = React.useState(null);
 
   const [filters, setFilters] = React.useState({
@@ -57,9 +54,12 @@ function App() {
   }, [filters]);
 
   return (
-    <div className="App">
-      <Filters setFilters={setFilters} />
-      <Playlist listMusic={listMusic || []} />
+    <div className={classes.container}>
+      <div>
+        <div className={classes.title}>Bem vindo à Playlist de lançamentos!</div>
+        <Filters setFilters={setFilters} />
+        <Playlist listMusic={listMusic || []} />
+      </div>
     </div>
   );
 }

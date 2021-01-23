@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
+import getFilters from '../hooks/getFilters';
 import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,19 +34,6 @@ const useStyles = makeStyles((theme) => ({
     width: 200,
   },
 }));
-
-const getFilters = () => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const html = await axios.get(
-        `http://www.mocky.io/v2/5a25fade2e0000213aa90776`,
-      );
-      resolve(html.data);
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
 
 function Filters({ setFilters }) {
   const classes = useStyles();
