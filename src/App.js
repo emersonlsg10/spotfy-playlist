@@ -40,9 +40,6 @@ function App() {
   });
 
   const [loading, setLoading] = React.useState(false);
-  const handleClose = () => {
-    setLoading(false);
-  };
 
   const getPlayList = async (params = '') => {
     setLoading(true);
@@ -56,34 +53,19 @@ function App() {
     }, 500);
   };
 
-  const concatParams = () => {
-    let params = '';
-    const keys = Object.keys(filters);
-    const values = Object.values(filters);
-
-    for (let i = 0; i < keys.length; i++) {
-      params += `${keys[i]}=${values[i]}&`;
-    }
-    return params;
-  };
-
   useEffect(() => {
     setInterval(() => {
-      getPlayList(concatParams());
+      getPlayList(filters);
     }, 30000);
   }, []);
 
   useEffect(() => {
-    getPlayList(concatParams());
+    getPlayList(filters);
   }, [filters]);
 
   return (
     <div className="app">
-      <Backdrop
-        className={classes.backdrop}
-        open={loading}
-        onClick={handleClose}
-      >
+      <Backdrop className={classes.backdrop} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
       <div className={classes.container}>
