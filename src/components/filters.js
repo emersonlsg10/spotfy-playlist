@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 function Filters({ setFilters }) {
   const classes = useStyles();
   const [listFilters, setListFilters] = React.useState(null);
-  
+
   useEffect(() => {
     const getInitialData = async () => {
       const responseFilters = await getFilters();
@@ -80,23 +80,25 @@ function Filters({ setFilters }) {
               </FormControl>
             )}
             {item.validation && item.validation.primitiveType === 'STRING' && (
-              <form className={classes.root} noValidate autoComplete="off">
-                <TextField
-                  id={item.id}
-                  name={item.name}
-                  onChange={(e) => handleChange(e, item.id)}
-                  label={item.name}
-                  type="datetime-local"
-                  defaultValue={`${moment(new Date()).format('YYYY-MM-DD')}T12:00`}
-                  className={classes.textField}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </form>
+              <FormControl className={classes.formControl}>
+                  <TextField
+                    id={item.id}
+                    name={item.name}
+                    onChange={(e) => handleChange(e, item.id)}
+                    label={item.name}
+                    type="datetime-local"
+                    defaultValue={`${moment(new Date()).format(
+                      'YYYY-MM-DD',
+                    )}T12:00`}
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+              </FormControl>
             )}
             {item.validation && item.validation.primitiveType === 'INTEGER' && (
-              <form className={classes.root} noValidate autoComplete="off">
+              <FormControl className={classes.formControl}>
                 <TextField
                   id={item.id}
                   type="number"
@@ -112,7 +114,7 @@ function Filters({ setFilters }) {
                     shrink: true,
                   }}
                 />
-              </form>
+              </FormControl>
             )}
           </>
         ))}

@@ -89,7 +89,7 @@ function App() {
       <div className={classes.container}>
         <div>
           <div className={classes.title}>
-            Bem vindo à Playlist de lançamentos!
+            Bem vindo a Playlist de lançamentos!
           </div>
           <Filters setFilters={setFilters} />
           <Playlist listMusic={listMusic || []} />
