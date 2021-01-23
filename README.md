@@ -1,3 +1,5 @@
+![Screenshot](spotfylist.png)
+
 # Architecture Details
     This projects uses axios to do requests to the API of the Spotfy,
 and uses react hooks to controll the filters and list music component;
