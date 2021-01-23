@@ -68,6 +68,12 @@ function App() {
   };
 
   useEffect(() => {
+    setInterval(() => {
+      getPlayList(concatParams());
+    }, 30000);
+  }, []);
+
+  useEffect(() => {
     getPlayList(concatParams());
   }, [filters]);
 
