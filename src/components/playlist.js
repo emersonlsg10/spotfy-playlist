@@ -9,7 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme) => ({
   list: {
-    marginTop: 30,
+    marginTop: 20,
     backgroundColor: '#252525',
     width: '100%',
     borderRadius: 5,
@@ -37,7 +37,7 @@ function Playlist({ listMusic }) {
 
   return (
     <List dense className={classes.list}>
-      {listMusic.items && listMusic.items.map((value, index) => {
+      {listMusic && listMusic.map((value, index) => {
         const labelId = `checkbox-list-secondary-label-${value}`;
         return (
           <ListItem onClick={() => setSelectedMusic(index)} className={classes.listItem} key={value} button>

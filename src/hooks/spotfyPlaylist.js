@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const token =
-  'BQDNMioR2ZMpqEvJZVtKpmQtzZtOLrbTR8ULJjzxI5rhs0GMzQCgbKB6pS_KgUskMA_0BzLtFeK_DDhYm9OKoh7-nnrrKm_J5hvIdlKNcFl2nSXY9ssb6deQhpj3HSaEy2HBtMfaS7kN6TsB1kmfICv7DOFwdumh9lZfTOSnjKbMk5zpTOFglzy09pCWtppDKQ4FZt69zA';
+  'BQBuQ27GnhGSMIqXHr2P2ZSwrpyotMOKrB5b3pz8JYv79GDB1fVDboxxuHP9uDv0ABw6SZWi6gmYzpbEwjTzEXELDJKX3cDT-w2GMaccDB184svvVKuAy9-8fuXM-kB1xPvqOPiNsc-I38B5oxXahixLpBWPu7JG2XLdRk2RVARj7ryTiHwU8bZYfmJzL3e3kC_IvzNRzw';
 
 const concatParams = filters => {
   let params = '';

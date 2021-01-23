@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Filters from './components/filters';
 import Playlist from './components/playlist';
+import SearchField from './components/searchField';
 import { makeStyles } from '@material-ui/core/styles';
 import callSpotfy from './hooks/spotfyPlaylist';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -30,23 +31,26 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
 
-  const [listMusic, setListMusic] = React.useState(null);
+  const [listMusic, setListMusic] = useState(null);
+  const [history, setHistory] = useState([]);
 
-  const [filters, setFilters] = React.useState({
+  const [filters, setFilters] = useState({
     locale: 'en_AU',
     country: 'AU',
     limit: '50',
     offset: '1',
   });
 
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getPlayList = async (params = '') => {
     setLoading(true);
     const responsePlaylist = await callSpotfy(params);
 
-    if (responsePlaylist && responsePlaylist.playlists)
-      setListMusic(responsePlaylist.playlists);
+    if (responsePlaylist && responsePlaylist.playlists.items){
+      setListMusic(responsePlaylist.playlists.items);
+      setHistory(responsePlaylist.playlists.items);
+    }
 
     setTimeout(() => {
       setLoading(false);
@@ -74,6 +78,7 @@ function App() {
             Bem vindo a Playlist de lançamentos!
           </div>
           <Filters setFilters={setFilters} />
+          <SearchField history={history} setListMusic={setListMusic} />
           <Playlist listMusic={listMusic || []} />
         </div>
       </div>
