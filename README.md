@@ -1,3 +1,14 @@
+# Architecture Details
+    This projects uses axios to do requests to the API of the Spotfy,
+and uses react hooks to controll the filters and list music component;
+
+# HOW TO USE
+
+ - First, run npm install to intall dependencies and after run npm start;
+
+ - Second, you must get your token in https://developer.spotify.com/console/get-featured-playlists. 
+After that, put it on spotfy-playlist/src/hooks/spotfyPlaylist.js;
+
 # MM React Test
 
 Create a web and app application used to display the preferred playlists from customers. The web application has only one page:
